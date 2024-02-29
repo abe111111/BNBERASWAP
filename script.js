@@ -1,3 +1,4 @@
+// JavaScript code for Web3 and contract interaction
 // Initialize Web3
 const web3 = new Web3(Web3.givenProvider || "ws://localhost:8545");
 
@@ -8,8 +9,8 @@ const abi = [
 
 // Contract addresses
 const contractAddresses = {
-    berachainUSDC: 0x959723c105eD00cc51Deb67FFdeDdD42c6390B2C,
-    bscUSDT: 0x5E10a91adb891831378A6A035f9B05382B45Aa15
+    berachainUSDC: "0xYourBerachainUSDCAddress",
+    bscUSDT: "0xYourBSCUSDTAddress"
 };
 
 // Initialize contract instance
