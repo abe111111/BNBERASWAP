@@ -1,16 +1,32 @@
-.input-group {
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    background-color: #f0f0f0;
+}
+
+h1 {
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+p {
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.center {
+    text-align: center;
     margin-bottom: 20px;
 }
 
-.input-group label {
-    margin-right: 10px;
-}
-
-.button-group {
-    margin-top: 20px;
-}
-
-.button-group button {
+input[type="number"] {
+    padding: 8px;
     margin-right: 10px;
 }
 
