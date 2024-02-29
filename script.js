@@ -6,7 +6,7 @@ const web3BSC = new Web3('https://rpc.ankr.com/bsc_testnet_chapel');
 
 // Contract ABI
 const abi = [
-    {
+      {
         "inputs": [
             {
                 "internalType": "uint256",
@@ -146,3 +146,23 @@ async function bridgeToBeraChain() {
         alert('An error occurred while bridging to BeraChain.');
     }
 }
+
+// Function to connect to the user's wallet
+async function connectWallet() {
+    if (window.ethereum) {
+        try {
+            await window.ethereum.request({ method: 'eth_requestAccounts' });
+            console.log('Wallet connected!');
+        } catch (error) {
+            console.error('Error connecting wallet:', error);
+        }
+    } else {
+        alert('Please install MetaMask!');
+    }
+}
+
+// Event listener for DOM content loaded
+document.addEventListener('DOMContentLoaded', (event) => {
+    // Connect wallet button event listener
+    document.getElementById('connectButton').addEventListener('click', connectWallet);
+});
