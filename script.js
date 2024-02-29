@@ -6,7 +6,7 @@ const web3BSC = new Web3('https://rpc.ankr.com/bsc_testnet_chapel');
 
 // Contract ABI
 const abi = [
-      {
+    {
         "inputs": [
             {
                 "internalType": "uint256",
@@ -109,23 +109,23 @@ const abi = [
     }
 ];
 
-// Contract addresses
-const contractAddresses = {
-    berachainUSDC: "0x959723c105eD00cc51Deb67FFdeDdD42c6390B2C",
-    bscUSDT: "0x5E10a91adb891831378A6A035f9B05382B45Aa15"
+// BNBERABridge contract addresses
+const bnberaBridgeContractAddresses = {
+    berachain: "0xA40804e0Df0C3E2d3a89b1048469F6924F040234",
+    bscTestnet: "0xe96AC8Dd9508b7D9C3a63803Aa9843C4d60aAf45"
 };
 
-// Initialize contract instance for BeraChain
-const contractBeraChain = new web3BeraChain.eth.Contract(abi, contractAddresses.berachainUSDC);
+// Initialize contract instance for BNBERABridge on BeraChain
+const bnberaBridgeBeraChainContract = new web3BeraChain.eth.Contract(abi, bnberaBridgeContractAddresses.berachain);
 
-// Initialize contract instance for BSC
-const contractBSC = new web3BSC.eth.Contract(abi, contractAddresses.bscUSDT);
+// Initialize contract instance for BNBERABridge on BSC Testnet
+const bnberaBridgeBSCTestnetContract = new web3BSC.eth.Contract(abi, bnberaBridgeContractAddresses.bscTestnet);
 
 // Function to bridge USDC tokens from BeraChain testnet to BSC testnet
 async function bridgeToBSC() {
     const amount = document.getElementById("amount").value;
     try {
-        const response = await contractBeraChain.methods.bridgeToBSC(web3BeraChain.utils.toWei(amount)).send({ from: (await web3BeraChain.eth.getAccounts())[0] });
+        const response = await bnberaBridgeBeraChainContract.methods.bridgeToBSC(web3BeraChain.utils.toWei(amount)).send({ from: (await web3BeraChain.eth.getAccounts())[0] });
         console.log(response);
         alert("Transaction submitted. Please wait for confirmation.");
     } catch (error) {
@@ -138,7 +138,7 @@ async function bridgeToBSC() {
 async function bridgeToBeraChain() {
     const amount = document.getElementById("amount").value;
     try {
-        const response = await contractBSC.methods.bridgeToBeraChain(web3BSC.utils.toWei(amount)).send({ from: (await web3BSC.eth.getAccounts())[0] });
+        const response = await bnberaBridgeBSCTestnetContract.methods.bridgeToBeraChain(web3BSC.utils.toWei(amount)).send({ from: (await web3BSC.eth.getAccounts())[0] });
         console.log(response);
         alert("Transaction submitted. Please wait for confirmation.");
     } catch (error) {
