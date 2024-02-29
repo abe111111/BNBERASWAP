@@ -39,7 +39,6 @@ main {
 
 input {
     padding: 8px;
-    margin-left: 5px;
     border-radius: 5px;
     border: 1px solid #ccc;
 }
@@ -53,7 +52,17 @@ p {
 }
 
 #connectButton {
-    position: absolute;
+    position: fixed;
     top: 20px;
     right: 20px;
+    padding: 8px 16px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+#connectButton:hover {
+    background-color: #45a049;
 }
