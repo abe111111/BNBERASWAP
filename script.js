@@ -122,10 +122,12 @@ const contractBeraChain = new web3BeraChain.eth.Contract(abi, contractAddresses.
 const contractBSC = new web3BSC.eth.Contract(abi, contractAddresses.bscUSDT);
 
 // Function to bridge USDC tokens from BeraChain testnet to BSC testnet
+
 async function bridgeToBSC() {
     const amount = document.getElementById("amount").value;
     try {
-        const response = await contractBeraChain.methods.bridgeToBSC(web3BeraChain.utils.toWei(amount)).send({ from: (await web3BeraChain.eth.getAccounts())[0] });
+        const accounts = await web3BeraChain.eth.getAccounts();
+        const response = await contractBeraChain.methods.bridgeToBSC(web3BeraChain.utils.toWei(amount)).send({ from: accounts[0] });
         console.log(response);
         alert("Transaction submitted. Please wait for confirmation.");
     } catch (error) {
@@ -138,7 +140,8 @@ async function bridgeToBSC() {
 async function bridgeToBeraChain() {
     const amount = document.getElementById("amount").value;
     try {
-        const response = await contractBSC.methods.bridgeToBeraChain(web3BSC.utils.toWei(amount)).send({ from: (await web3BSC.eth.getAccounts())[0] });
+        const accounts = await web3BSC.eth.getAccounts();
+        const response = await contractBSC.methods.bridgeToBeraChain(web3BSC.utils.toWei(amount)).send({ from: accounts[0] });
         console.log(response);
         alert("Transaction submitted. Please wait for confirmation.");
     } catch (error) {
@@ -146,3 +149,4 @@ async function bridgeToBeraChain() {
         alert('An error occurred while bridging to BeraChain.');
     }
 }
+
