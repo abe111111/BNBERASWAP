@@ -6,16 +6,19 @@ const abi = [
     // Paste your contract ABI here
 ];
 
-// Contract address
-const contractAddress = "0xContractAddress";
+// Contract addresses
+const contractAddresses = {
+    berachainUSDC: 0x959723c105eD00cc51Deb67FFdeDdD42c6390B2C,
+    bscUSDT: 0x5E10a91adb891831378A6A035f9B05382B45Aa15
+};
 
 // Initialize contract instance
-const contract = new web3.eth.Contract(abi, contractAddress);
+const contract = new web3.eth.Contract(abi, contractAddresses.berachainUSDC);
 
-// Swap BNB for WBERA
-function swapBNBForWBERA() {
+// Function to bridge USDC tokens from BeraChain testnet to BSC testnet
+function bridgeToBSC() {
     const amount = document.getElementById("amount").value;
-    contract.methods.swapBNBForWBERA(web3.utils.toWei(amount)).send({ from: web3.eth.defaultAccount })
+    contract.methods.bridgeToBSC(web3.utils.toWei(amount)).send({ from: web3.eth.defaultAccount })
     .on('transactionHash', function(hash){
         console.log(hash);
         alert("Transaction submitted. Please wait for confirmation.");
@@ -30,10 +33,10 @@ function swapBNBForWBERA() {
     });
 }
 
-// Swap WBERA for BNB
-function swapWBERAForBNB() {
+// Function to bridge USDT tokens from BSC testnet to BeraChain testnet
+function bridgeToBeraChain() {
     const amount = document.getElementById("amount").value;
-    contract.methods.swapWBERAForBNB(web3.utils.toWei(amount)).send({ from: web3.eth.defaultAccount })
+    contract.methods.bridgeToBeraChain(web3.utils.toWei(amount)).send({ from: web3.eth.defaultAccount })
     .on('transactionHash', function(hash){
         console.log(hash);
         alert("Transaction submitted. Please wait for confirmation.");
