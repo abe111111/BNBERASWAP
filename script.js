@@ -1,5 +1,8 @@
 // Initialize Web3 with Ankr's RPC endpoint for BeraChain Testnet
-const web3 = new Web3('https://rpc.ankr.com/berachain_testnet');
+const web3BeraChain = new Web3('https://rpc.ankr.com/berachain_testnet');
+
+// Initialize Web3 with Ankr's RPC endpoint for BSC Testnet
+const web3BSC = new Web3('https://rpc.ankr.com/bsc_testnet_chapel');
 
 // Contract ABI
 const abi = [
@@ -112,41 +115,34 @@ const contractAddresses = {
     bscUSDT: "0x5E10a91adb891831378A6A035f9B05382B45Aa15"
 };
 
-// Initialize contract instance
-const contract = new web3.eth.Contract(abi, contractAddresses.berachainUSDC);
+// Initialize contract instance for BeraChain
+const contractBeraChain = new web3BeraChain.eth.Contract(abi, contractAddresses.berachainUSDC);
+
+// Initialize contract instance for BSC
+const contractBSC = new web3BSC.eth.Contract(abi, contractAddresses.bscUSDT);
 
 // Function to bridge USDC tokens from BeraChain testnet to BSC testnet
-function bridgeToBSC() {
+async function bridgeToBSC() {
     const amount = document.getElementById("amount").value;
-    contract.methods.bridgeToBSC(web3.utils.toWei(amount)).send({ from: web3.eth.defaultAccount })
-    .on('transactionHash', function(hash){
-        console.log(hash);
+    try {
+        const response = await contractBeraChain.methods.bridgeToBSC(web3BeraChain.utils.toWei(amount)).send({ from: (await web3BeraChain.eth.getAccounts())[0] });
+        console.log(response);
         alert("Transaction submitted. Please wait for confirmation.");
-    })
-    .on('receipt', function(receipt){
-        console.log(receipt);
-        alert("Transaction confirmed!");
-    })
-    .on('error', function(error){
-        console.error(error);
-        alert("Transaction failed. Please try again.");
-    });
+    } catch (error) {
+        console.error('Error:', error);
+        alert('An error occurred while bridging to BSC.');
+    }
 }
 
 // Function to bridge USDT tokens from BSC testnet to BeraChain testnet
-function bridgeToBeraChain() {
+async function bridgeToBeraChain() {
     const amount = document.getElementById("amount").value;
-    contract.methods.bridgeToBeraChain(web3.utils.toWei(amount)).send({ from: web3.eth.defaultAccount })
-    .on('transactionHash', function(hash){
-        console.log(hash);
+    try {
+        const response = await contractBSC.methods.bridgeToBeraChain(web3BSC.utils.toWei(amount)).send({ from: (await web3BSC.eth.getAccounts())[0] });
+        console.log(response);
         alert("Transaction submitted. Please wait for confirmation.");
-    })
-    .on('receipt', function(receipt){
-        console.log(receipt);
-        alert("Transaction confirmed!");
-    })
-    .on('error', function(error){
-        console.error(error);
-        alert("Transaction failed. Please try again.");
-    });
+    } catch (error) {
+        console.error('Error:', error);
+        alert('An error occurred while bridging to BeraChain.');
+    }
 }
