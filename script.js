@@ -1,5 +1,5 @@
-// Initialize Web3
-const web3 = new Web3(Web3.givenProvider || "ws://localhost:8545");
+// Initialize Web3 with Ankr's RPC endpoint for BeraChain Testnet
+const web3 = new Web3('https://rpc.ankr.com/berachain_testnet');
 
 // Contract ABI
 const abi = [
