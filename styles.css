@@ -14,12 +14,19 @@ h1 {
     margin-bottom: 20px;
 }
 
-p {
+.description {
     margin-bottom: 20px;
 }
 
-input[type="number"] {
-    padding: 8px;
+.input-group {
+    margin-bottom: 20px;
+}
+
+.input-group label {
+    margin-right: 10px;
+}
+
+.button-group button {
     margin-right: 10px;
 }
 
